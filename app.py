@@ -18,7 +18,8 @@ st.title("Car Price Prediction Website:")
 Model=st.selectbox("Model",data["Model"].unique())
 
 #Create a selection box for the company
-Make=st.selectbox("Make",data["Make"].unique())
+filtered_make_options = data[data["Model"] == Model]["Make"].unique()
+Make = st.selectbox("Select Make", filtered_make_options)
 
 #Input the year the car was made
 YOM=st.number_input("Year the car was made")
@@ -49,7 +50,7 @@ if st.button('Predict Price'):
                              data=np.array([Model,Make,YOM,Used,Transmission,Mileage,Location,Age,Fuel_Type]).reshape(1,9))))
     print("Hello world")
     st.title("The car price ranges between " +
-             str(prediction - 50000) + " Ksh " + " - " + str(prediction +50000) + " Ksh " )
+             str(prediction - 20000) + " Ksh " + " - " + str(prediction +20000) + " Ksh " )
 
 
 
