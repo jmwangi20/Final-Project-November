@@ -3,7 +3,7 @@ import pandas as pd
 import numpy as np
 import pickle
 # import joblib
-file1=open("RandomForestModel.pk1","rb")
+file1=open("Final_Project_model.zip","rb")
 model=pickle.load(file1)
 file1.close()
 # model=joblib.load(open('finalProject.pkl','rb'))
