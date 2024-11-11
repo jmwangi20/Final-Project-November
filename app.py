@@ -2,11 +2,11 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 import pickle
-import joblib
-# file1=open("RandomForestModel.pk1","rb")
-# model=pickle.load(file1)
-# file1.close()
-model=joblib.load(open('finalProject.pkl','rb'))
+# import joblib
+file1=open("RandomForestModel.pk1","rb")
+model=pickle.load(file1)
+file1.close()
+# model=joblib.load(open('finalProject.pkl','rb'))
 
 data=pd.read_csv("finalProjectData.csv")
 
