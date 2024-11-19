@@ -2,11 +2,11 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 import pickle
-import joblib
-# file1=open("Final_Project_model.zip","rb")
-# model=pickle.load(file1)
-# file1.close()
-model=joblib.load(open('Final_Project_model.zip','rb'))
+# import joblib
+# Load the saved model
+with open('Final_Project_model.zip', 'rb') as f:
+    loaded_rf_model = pickle.load(f)
+# model=joblib.load(open('Final_Project_model.zip','rb'))
 
 data=pd.read_csv("finalProjectData.csv")
 
@@ -45,7 +45,7 @@ Fuel_Type=st.selectbox("Fuel_type",data["Fuel_Type"].unique())
 if st.button('Predict Price'):
     # [Model, Make, YOM, Used, Transmission, Mileage, Location, Age, Fuel_Type]
 
-    prediction=int(model.predict(pd.DataFrame(columns=["Model","Make","YOM","Used","Transmission","Mileage","Location","Age","Fuel_Type"],
+    prediction=int(loaded_rf_model.predict(pd.DataFrame(columns=["Model","Make","YOM","Used","Transmission","Mileage","Location","Age","Fuel_Type"],
                              data=np.array([Model,Make,YOM,Used,Transmission,Mileage,Location,Age,Fuel_Type]).reshape(1,9))))
     print("Hello world")
     st.title("The car price ranges between " +
