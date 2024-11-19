@@ -2,10 +2,16 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 import pickle
-# import joblib
-# Load the saved model
-with open('Final_Project_model.zip', 'rb') as f:
-    loaded_rf_model = pickle.load(f)
+import zipfile
+
+# Path to your zipped model file
+zipped_file_path = 'Final_Project_model.zip'
+
+# Open the zipped file and load the model
+with zipfile.ZipFile(zipped_file_path, 'r') as zip_ref:
+    # Locate the specific file within the zip
+    with zip_ref.open('random_forest_model.pkl') as f:
+        loaded_rf_model = pickle.load(f)
 # model=joblib.load(open('Final_Project_model.zip','rb'))
 
 data=pd.read_csv("finalProjectData.csv")
