@@ -2,18 +2,19 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 import pickle
-import zipfile
+import gdown
+import pickle
 
-# Path to your zipped model file
-zipped_file_path = 'Final_Project_model.zip'
+# Download the model file from Google Drive
+url = "https://drive.google.com/file/d/1ZJHXjhfpul0tq5u5fuA0am4t_-65VvjA/view?usp=drive_link"
+output = "final_project_model.pkl"
+gdown.download(url, output, quiet=False)
 
-# Open the zipped file and load the model
-with zipfile.ZipFile(zipped_file_path, 'r') as zip_ref:
-    # Locate the specific file within the zip
-    with zip_ref.open('random_forest_model.pkl') as f:
-        loaded_rf_model = pickle.load(f)
-# model=joblib.load(open('Final_Project_model.zip','rb'))
+# Load the model
+with open(output, "rb") as f:
+    model = pickle.load(f)
 
+# Your Streamlit app code here
 data=pd.read_csv("finalProjectData.csv")
 
 #Create a title for the website
@@ -51,9 +52,9 @@ Fuel_Type=st.selectbox("Fuel_type",data["Fuel_Type"].unique())
 if st.button('Predict Price'):
     # [Model, Make, YOM, Used, Transmission, Mileage, Location, Age, Fuel_Type]
 
-    prediction=int(loaded_rf_model.predict(pd.DataFrame(columns=["Model","Make","YOM","Used","Transmission","Mileage","Location","Age","Fuel_Type"],
+    prediction=int(model.predict(pd.DataFrame(columns=["Model","Make","YOM","Used","Transmission","Mileage","Location","Age","Fuel_Type"],
                              data=np.array([Model,Make,YOM,Used,Transmission,Mileage,Location,Age,Fuel_Type]).reshape(1,9))))
-    print("Hello world")
+    
     st.title("The car price ranges between " +
              str(prediction - 20000) + " Ksh " + " - " + str(prediction +20000) + " Ksh " )
 
