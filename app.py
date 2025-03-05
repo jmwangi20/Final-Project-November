@@ -4,16 +4,22 @@ import numpy as np
 import pickle
 import gdown
 import pickle
+import requests
 
 # Download the model file from Google Drive
 url = "https://drive.google.com/file/d/1ZJHXjhfpul0tq5u5fuA0am4t_-65VvjA/view?usp=drive_link"
-output = "final_project_model.pkl"
-gdown.download(url, output, quiet=False)
+# Google Drive file ID
+file_id = "1ZJHXjhfpul0tq5u5fuA0am4t_-65VvjA"
+url = f"https://drive.google.com/uc?export=download&id={file_id}"
+
+# Download the file
+response = requests.get(url)
+with open("final_project_model.pkl", "wb") as f:
+    f.write(response.content)
 
 # Load the model
-with open(output, "rb") as f:
+with open("final_project_model.pkl", "rb") as f:
     model = pickle.load(f)
-
 # Your Streamlit app code here
 data=pd.read_csv("finalProjectData.csv")
 
