@@ -16,7 +16,7 @@ with open("Final_Project_model.pkl", "wb") as f:
     f.write(response.content)
 
 # Load the model
-with open("final_project_model.pkl", "rb") as f:
+with open("Final_Project_model.pkl", "rb") as f:
     model = pickle.load(f)
 # Your Streamlit app code here
 data=pd.read_csv("finalProjectData.csv")
