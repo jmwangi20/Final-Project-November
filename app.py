@@ -12,7 +12,7 @@ url = f"https://drive.google.com/uc?export=download&id={file_id}"
 
 # Download the file
 response = requests.get(url)
-with open("final_project_model.pkl", "wb") as f:
+with open("Final_Project_model.pkl", "wb") as f:
     f.write(response.content)
 
 # Load the model
